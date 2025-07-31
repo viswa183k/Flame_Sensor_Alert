@@ -1,0 +1,29 @@
+// Flame Sensor Alert System using Arduino
+
+const int flamePin = 2;      // Flame sensor digital output connected to pin 2
+const int buzzerPin = 9;     // Buzzer connected to pin 9
+const int ledPin = 13;       // LED for visual alert
+
+void setup() {
+  pinMode(flamePin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+  Serial.println("Flame Sensor System Initialized");
+}
+
+void loop() {
+  int flameDetected = digitalRead(flamePin);
+
+  if (flameDetected == LOW) {  // LOW = flame detected for most sensors
+    digitalWrite(buzzerPin, HIGH);
+    digitalWrite(ledPin, HIGH);
+    Serial.println("🔥 Flame Detected! ALERT!");
+  } else {
+    digitalWrite(buzzerPin, LOW);
+    digitalWrite(ledPin, LOW);
+    Serial.println("No flame detected. All safe.");
+  }
+
+  delay(500);
+}
